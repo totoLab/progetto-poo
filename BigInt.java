@@ -84,7 +84,7 @@ public interface BigInt extends Comparable<BigInt>, Iterable<Integer> {
     	BigInt result = factory(1);
     	
     	BigInt bigZero = factory(0);
-    	for (BigInt cont = factory(exponent); cont.compareTo(bigZero) < 0; ) {
+    	for (BigInt cont = factory(exponent); cont.compareTo(bigZero) > 0; ) {
     		result = result.mul(this);
     		cont = cont.decr();
     	}
