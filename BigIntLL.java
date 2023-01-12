@@ -116,8 +116,8 @@ public class BigIntLL extends AbstractBigInt {
 		if (this.length() > o.length()) return 1;
 		if (this.length() < o.length()) return -1;
 		
-		Iterator<Integer> it1 = getInvertedObjectValue(this).iterator();
-		Iterator<Integer> it2 = getInvertedObjectValue(o).iterator();
+		Iterator<Integer> it1 = this.iterator();
+		Iterator<Integer> it2 = o.iterator();
 		for (; it1.hasNext() && it2.hasNext() ;) {
 			Integer i1 = it1.next();
 			Integer i2 = it2.next();
