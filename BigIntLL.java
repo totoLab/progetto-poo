@@ -1,10 +1,6 @@
 package self.progetto;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.ListIterator;
-
-import javax.swing.plaf.basic.BasicProgressBarUI;
+import java.util.*;
 
 public class BigIntLL extends AbstractBigInt {
 	
@@ -177,40 +173,6 @@ public class BigIntLL extends AbstractBigInt {
 	@Override
 	public Iterator<Integer> iterator() {
 		return bigInt.iterator();
-	}
-	
-	private ListIterator<Integer> listIterator() {
-		return bigInt.listIterator();
-	}
-	
-	private LinkedList<Integer> getInvertedObjectValue(BigInt b) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(b.value());
-		sb.reverse();
-		String s = sb.toString();
-		LinkedList<Integer> result = new LinkedList<>();
-		for (int i = 0; i < s.length(); i++) {
-			String c = "" + s.charAt(i);
-			result.add(
-					Integer.parseInt(c)
-			);
-		}
-		return result;
-	}
-	
-	private BigInt llToBigInt(LinkedList<Integer> ll) { // assuming list first item is less significant digit
-		if (ll == null || ll.size() == 0) throw new IllegalArgumentException();
-		
-		Iterator<Integer> it = ll.descendingIterator();
-		StringBuilder sb = new StringBuilder();
-		while (it.hasNext()) {
-			sb.append(
-				Integer.toString(
-					it.next()
-				)
-			);
-		}
-		return new BigIntLL(sb.toString());
 	}
 	
 }
