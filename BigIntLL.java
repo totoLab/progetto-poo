@@ -8,7 +8,7 @@ import javax.swing.plaf.basic.BasicProgressBarUI;
 
 public class BigIntLL extends AbstractBigInt {
 	
-	final private LinkedList<Integer> bigInt; // first element is less significant digit
+	final private LinkedList<Integer> bigInt; // first element is most significant digit
 	final static String nonNumericRegex = "\\D";
 	
 	public BigIntLL(int x) {
@@ -19,7 +19,7 @@ public class BigIntLL extends AbstractBigInt {
 		if (s.matches(nonNumericRegex)) throw new IllegalArgumentException(); // also catches negatives
 		  
 		bigInt = new LinkedList<>();
-		for (int i = s.length() - 1; i >= 0; i--) {
+		for (int i = 0; i < s.length(); i++) {
 			bigInt.add(
 				Integer.parseInt(
 					Character.toString(
@@ -30,7 +30,7 @@ public class BigIntLL extends AbstractBigInt {
 	
 	@Override
 	public String value() {
-		Iterator<Integer> it = bigInt.descendingIterator();
+		Iterator<Integer> it = bigInt.iterator();
 		StringBuilder sb = new StringBuilder();
 		while (it.hasNext()) {
 			sb.append(it.next());
