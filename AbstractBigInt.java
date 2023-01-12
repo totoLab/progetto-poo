@@ -1,4 +1,4 @@
-package self.progetto.math;
+package self.progetto;
 
 public abstract class AbstractBigInt implements BigInt {
 	
