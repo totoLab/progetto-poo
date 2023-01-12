@@ -27,6 +27,10 @@ public class BigIntLL extends AbstractBigInt {
 			)));
 		}
 	}
+
+	private BigIntLL(LinkedList<Integer> ll) {
+		this.bigInt = ll;
+	}
 	
 	@Override
 	public String value() {
@@ -50,11 +54,11 @@ public class BigIntLL extends AbstractBigInt {
 
 	@Override
 	public BigInt incr() {
-		BigIntLL ret = new BigIntLL(this.value());
-		ListIterator<Integer> it = ret.listIterator();
+		LinkedList<Integer> ret = new LinkedList<>(bigInt);
+		ListIterator<Integer> it = ret.listIterator(ret.size());
 		boolean riporto = true;
-		while(it.hasNext() && riporto) {
-			Integer current = it.next();
+		while(it.hasPrevious() && riporto) {
+			Integer current = it.previous();
 			if (current != 9) {
 				it.set(current + 1);
 				riporto = false;
@@ -64,21 +68,21 @@ public class BigIntLL extends AbstractBigInt {
 		}
 		
 		if (riporto) {
-			it.add(1);
+			ret.addFirst(1);
 		}
 		
-		return ret;
+		return new BigIntLL(ret);
 	}
 	
 	@Override
 	public BigInt decr() throws IllegalStateException { // eccezione se this è zero
 		if (this.equals(factory(0))) throw new IllegalStateException("this is already at minimum value possible.");
 		
-		BigIntLL ret = new BigIntLL(this.value());
-		ListIterator<Integer> it = ret.listIterator();
+		LinkedList<Integer> ret = new LinkedList<>(bigInt);
+		ListIterator<Integer> it = ret.listIterator(bigInt.size());
 		boolean riporto = true;
-		while(it.hasNext() && riporto) {
-			Integer current = it.next();
+		while(it.hasPrevious() && riporto) {
+			Integer current = it.previous();
 			if (current != 0) {
 				it.set(current - 1);
 				riporto = false;
@@ -87,11 +91,23 @@ public class BigIntLL extends AbstractBigInt {
 			}
 		}
 		
-		while(it.hasNext() ) { // removing trailing zeros
-			if (it.next() == 0)
-				it.remove();
+		it = ret.listIterator();
+		while(it.hasNext() && it.next() == 0) { 
+			it.remove(); // removing trailing zeros
 		}
 		
+		return new BigIntLL(ret);
+	}
+	private LinkedList<Integer> bigIntToLL(BigInt a) {
+		LinkedList<Integer> ret = new LinkedList<>();
+		String s = a.value();
+		for (int i = 0; i < s.length(); i++) {
+			ret.addLast(
+				Integer.parseInt(
+					Character.toString(
+						s.charAt(i)
+			)));
+		}
 		return ret;
 	}
 
