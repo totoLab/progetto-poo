@@ -98,6 +98,54 @@ public class BigIntLL extends AbstractBigInt {
 		
 		return new BigIntLL(ret);
 	}
+
+	@Override
+	public BigInt add(BigInt a) {
+		LinkedList<Integer> first = new LinkedList<>(bigInt);
+		LinkedList<Integer> second = bigIntToLL(a);
+		LinkedList<Integer> ret = new LinkedList<>();
+
+		int size1 = this.length();
+		int size2 = a.length();
+		
+		ListIterator<Integer> it1 = null;
+		ListIterator<Integer> it2 = null;
+		if (this.compareTo(a) >= 0) {
+			it1 = first.listIterator(size1);
+			it2 = second.listIterator(size2);
+		} else {
+			it2 = first.listIterator(size1);
+			it1 = second.listIterator(size2);
+		}
+		
+		boolean riporto = false;
+		while(it1.hasPrevious()) {
+			Integer current1 = it1.previous();
+			Integer current2 = (it2.hasPrevious()) ? it2.previous() : 0;
+			int sum = current1 + current2;
+			if (sum >= 10) { // aggiungere riporto al prossimo
+				sum -= 10;
+				if (riporto) {
+					sum++;
+				}
+				ret.addFirst(sum);
+				riporto = true;
+			} else {
+				if (riporto) {
+					sum++;
+				}
+				ret.addFirst(sum);
+				riporto = false;
+			}
+		}
+		
+		if (riporto) {
+			ret.addFirst(1);
+		}
+		
+		return new BigIntLL(ret);
+	}
+	
 	private LinkedList<Integer> bigIntToLL(BigInt a) {
 		LinkedList<Integer> ret = new LinkedList<>();
 		String s = a.value();
