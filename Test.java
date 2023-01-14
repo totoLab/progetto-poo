@@ -1,22 +1,23 @@
-package self.progetto.math;
+package self.progetto;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
+import java.io.*;
 import java.util.*;
+import java.math.*;
 
 public class Test {
 	
 	public static void main(String[] args) {
-		//new Test().tests();
+		Test t = new Test();
 		
-		new Test().littleTest();
-		
+		long start = System.nanoTime();
+		t.powerTest(2, 14299);
+		long end = System.nanoTime();
+		double time = ((end - start) * Math.pow(10, 9));
+		System.out.println(time + "s");
 	}
 	
 	private void littleTest() {
-		int delta = 200;
+		int delta = 3;
 		int lowerBound = 1;
 		int upperBound = lowerBound + delta;
 		
@@ -77,22 +78,29 @@ public class Test {
 		System.out.println("Decr: " + b2.value());
 	}
 
-	private void tests() {
-		powerTest(2, 128);
-		comparableTest();
-	}
-	
-
-	void powerTest(int base, int power) {
+	private void powerTest(int base, int power) {
 		String result = base + "^" + power + " = ";
 		
 		BigInteger b1 = new BigInteger(Integer.toString(base));
 		BigInteger p1 = b1.pow(power);
-		System.out.println("BigInteger " + result + p1);
 		
 		BigInt b2 = new BigIntLL(base);
 		BigInt p2 = b2.pow(power);
-		System.out.println("BigInt     " + result + p2);
+		
+		StringBuilder sb = new StringBuilder();
+		String bigInteger = "BigInteger " + result + p1;
+		String bigInt = "BigInt     " + result + p2;
+		
+		if (!p1.toString().equals(p2.toString())) {
+			sb.append("Different results:\n");
+			sb.append(bigInteger);
+			sb.append("\n");
+			sb.append(bigInt);
+		} else {
+			sb.append("Test passed, result: ");
+			sb.append(result + p1);
+		}
+		System.out.println(sb.toString());
 	}
 	
 	boolean comparableTest() {
