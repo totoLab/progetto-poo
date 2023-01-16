@@ -16,7 +16,7 @@ public class BigIntLL extends AbstractBigInt {
 		  
 		bigInt = new LinkedList<>();
 		for (int i = 0; i < s.length(); i++) {
-			bigInt.add(
+			bigInt.addLast(
 				Integer.parseInt(
 					Character.toString(
 						s.charAt(i)
@@ -97,12 +97,12 @@ public class BigIntLL extends AbstractBigInt {
 
 	@Override
 	public BigInt add(BigInt a) {
-		LinkedList<Integer> first = new LinkedList<>(bigInt);
+		LinkedList<Integer> first = bigIntToLL(this);
 		LinkedList<Integer> second = bigIntToLL(a);
 		LinkedList<Integer> ret = new LinkedList<>();
 
-		int size1 = this.length();
-		int size2 = a.length();
+		int size1 = first.size();
+		int size2 = second.size();
 		
 		ListIterator<Integer> it1 = null;
 		ListIterator<Integer> it2 = null;
@@ -130,8 +130,13 @@ public class BigIntLL extends AbstractBigInt {
 				if (riporto) {
 					sum++;
 				}
+				if (sum >= 10) {
+					sum -= 10;
+					riporto = true;
+				} else {
+					riporto = false;
+				}
 				ret.addFirst(sum);
-				riporto = false;
 			}
 		}
 		
