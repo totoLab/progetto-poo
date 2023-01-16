@@ -114,30 +114,23 @@ public class BigIntLL extends AbstractBigInt {
 			it1 = second.listIterator(size2);
 		}
 		
-		boolean riporto = false;
+		boolean riporto = false;		
 		while(it1.hasPrevious()) {
 			Integer current1 = it1.previous();
 			Integer current2 = (it2.hasPrevious()) ? it2.previous() : 0;
 			int sum = current1 + current2;
+			
+			if (riporto) {
+				sum++;
+			}
+			
 			if (sum >= 10) { // aggiungere riporto al prossimo
 				sum -= 10;
-				if (riporto) {
-					sum++;
-				}
-				ret.addFirst(sum);
 				riporto = true;
 			} else {
-				if (riporto) {
-					sum++;
-				}
-				if (sum >= 10) {
-					sum -= 10;
-					riporto = true;
-				} else {
-					riporto = false;
-				}
-				ret.addFirst(sum);
+				riporto = false;
 			}
+			ret.addFirst(sum);
 		}
 		
 		if (riporto) {
