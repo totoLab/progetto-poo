@@ -1,4 +1,4 @@
-package self.progetto;
+package self.math;
 
 import java.math.*;
 import java.text.*;
@@ -8,14 +8,14 @@ public class Test {
 
 	public static void main(String[] args) {
 
-		int base = input("Inserire intero per la base");
-		int power = input("Inserire intero per l'esponente");
+		int base = input("Inserire intero per la base: ");
+		int power = input("Inserire intero per l'esponente: ");
 		
-		System.out.println("Test started!");
+		System.out.println("Test iniziato!");
 		long start = System.nanoTime();
 		powerTest(base, power);
 		long end = System.nanoTime();
-		System.out.println("Time lasted: " + convertTime(start, end) + "s");
+		System.out.println("Durata test: " + convertTime(start, end) + "s");
 		
 	}
 
@@ -32,12 +32,12 @@ public class Test {
 		String bigInt = "BigInt     " + result + p2;
 		
 		if (!p1.toString().equals(p2.toString())) {
-			sb.append("Different results:\n");
+			sb.append("Risultati diversi:\n");
 			sb.append(bigInteger);
 			sb.append("\n");
 			sb.append(bigInt);
 		} else {
-			sb.append("Test passed, result: ");
+			sb.append("Test superato, risultato: ");
 			sb.append(result + p1);
 		}
 		System.out.println(sb.toString());
