@@ -1,4 +1,4 @@
-package self.progetto;
+package self.math;
 
 import java.util.Iterator;
 
